@@ -3,12 +3,18 @@ package com.storyshell.model;
 import java.io.Serializable;
 
 public class FreindModel implements Serializable {
-	int rowId;
-	int friendId;
-	String username;
-	int followingStatus;
-	String joinedDate;
-	int active;
+	/**
+	 * @author RajaBose
+	 * @category model class
+	 */
+	private static final long serialVersionUID = 6104875073573465025L;
+	private int rowId;
+	private int friendId;
+	private int userId;
+	private String username;
+	private int followingStatus;
+	private String joinedDate;
+	private int active;
 
 	public int getRowId() {
 		return rowId;
@@ -56,6 +62,14 @@ public class FreindModel implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

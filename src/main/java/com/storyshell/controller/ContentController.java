@@ -71,7 +71,7 @@ public class ContentController {
 		Map<String, Object> mapOfFile = new HashMap<String, Object>();
 		mapOfFile.put("rajakishore.jpg", (Object) file1);
 		mapOfFile.put("rajakishore2.jpg", (Object) file2);
-		ResponseBuilder response = Response.ok(new Array({(Object) file1,(Object)file2));
+		ResponseBuilder response = Response.ok((Object)file2);
 		response.header("Content-Disposition", "attachment; filename={\"rajakishore.jpg\",\"rajakishore2.jpg\"}");
 		// return Response.status(200).entity(mapOfFile).build();
 		return response.build();

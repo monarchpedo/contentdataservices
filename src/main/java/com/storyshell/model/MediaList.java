@@ -3,20 +3,25 @@ package com.storyshell.model;
 import java.io.Serializable;
 
 public class MediaList implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8274844870472897499L;
 	private int rowId;
 	private int postId;
+	private int userId;
 	private String mediaId;
 	private String location;
 	private String modifiedDate;
 	private String createdDate;
 	private int active;
-	private int mediaType;
+	private String mediaType;
 
-	public int getMediaType() {
+	public String getMediaType() {
 		return mediaType;
 	}
 
-	public void setMediaType(int mediaType) {
+	public void setMediaType(String mediaType) {
 		this.mediaType = mediaType;
 	}
 
@@ -74,6 +79,14 @@ public class MediaList implements Serializable {
 
 	public void setActive(int active) {
 		this.active = active;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

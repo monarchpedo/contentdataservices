@@ -2,6 +2,9 @@ package com.storyshell.dao;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.storyshell.model.CommentDetail;
@@ -9,19 +12,29 @@ import com.storyshell.model.FreindModel;
 import com.storyshell.model.MediaList;
 import com.storyshell.model.Message;
 import com.storyshell.model.Post;
+import com.storyshell.util.MediaMapper;
 
 @Repository
 public class ContentDataImpl implements ContentData {
 
+	//private static final String serialId = "";
+
+	@Inject
+	private JdbcTemplate jdbcTemplate;
+
 	@Override
-	public List<MediaList> getAllImages(int userId) {
+	public List<MediaList> getAllImages(int userId, int mediaType) {
 		// TODO Auto-generated method stub
-		return null;
+		String query = com.storyshell.util.Constants.getMediaDetail;
+
+		List<MediaList> mediaList = (List<MediaList>) jdbcTemplate.query(query, new Object[] {}, new MediaMapper());
+		return mediaList;
 	}
 
 	@Override
 	public MediaList getProfileImage(int userId) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

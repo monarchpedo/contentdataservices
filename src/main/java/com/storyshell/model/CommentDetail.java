@@ -3,8 +3,14 @@ package com.storyshell.model;
 import java.io.Serializable;
 
 public class CommentDetail implements Serializable {
+	/**
+	 * @author RajaBose
+	 * @category model class
+	 */
+	private static final long serialVersionUID = -3991575378651456738L;
 	private int rowId;
 	private int postId;
+	private int userId;
 	private String commentDetails;
 	private int childLevel;
 	private int parentId;
@@ -74,6 +80,14 @@ public class CommentDetail implements Serializable {
 
 	public void setActive(int active) {
 		this.active = active;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

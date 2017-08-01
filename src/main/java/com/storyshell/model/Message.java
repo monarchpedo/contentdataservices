@@ -3,13 +3,19 @@ package com.storyshell.model;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7090872080481235177L;
 	private int msgId;
 	private int userId;
-	private int receiptUserId;
+	private int receiptId;
 	private String message;
 	private MediaList mediaList;
 	private String createdDate;
-	private int active;
+	private int isActive;
+	private int mediaId;
+	private int groupId;
 
 	public int getMsgId() {
 		return msgId;
@@ -27,12 +33,12 @@ public class Message implements Serializable {
 		this.userId = userId;
 	}
 
-	public int getReceiptUserId() {
-		return receiptUserId;
+	public int getReceiptId() {
+		return receiptId;
 	}
 
-	public void setReceiptUserId(int receiptUserId) {
-		this.receiptUserId = receiptUserId;
+	public void setReceiptId(int receiptId) {
+		this.receiptId = receiptId;
 	}
 
 	public String getMessage() {
@@ -59,11 +65,27 @@ public class Message implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public int getActive() {
-		return active;
+	public int getIsActive() {
+		return isActive;
 	}
 
-	public void setActive(int active) {
-		this.active = active;
+	public void setIsActive(int active) {
+		this.isActive = active;
+	}
+
+	public int getMediaId() {
+		return mediaId;
+	}
+
+	public void setMediaId(int mediaId) {
+		this.mediaId = mediaId;
+	}
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 }

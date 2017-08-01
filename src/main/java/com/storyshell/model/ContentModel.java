@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ContentModel implements Serializable {
+	/**
+	 * @author Raja Bose
+	 * @category Model
+	 * software developer
+	 */
+	private static final long serialVersionUID = -3686108793354094929L;
 	private List<Post> post;
 	private List<Message> message;
 	private List<MediaList> mediaList;
