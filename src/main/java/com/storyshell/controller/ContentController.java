@@ -40,8 +40,8 @@ public class ContentController {
 
 	@POST
 	@Path("/media/{userId}")
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// @Produces(MediaType.APPLICATION_JSON)
+	//@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces(MediaType.APPLICATION_JSON)
 	public String getMediaList(String body, @PathParam("userId") int userId, @QueryParam("name") String name,
 			@HeaderParam("X-Auth-Token") String token, @Context HttpServletRequest request) {
 

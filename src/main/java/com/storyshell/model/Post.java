@@ -3,29 +3,52 @@ package com.storyshell.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 public class Post implements Serializable {
 	/**
 	 * @author RajaBose
 	 * @category model class
 	 */
 	private static final long serialVersionUID = -7381056071294028885L;
+	private int id;
+	@NotNull
 	private int userId;
 	private List<CommentDetail> commentDetails;
-	private int totalComments;
-	private int totalLikes;
+	@NotNull
+	private int totalComment;
+	@NotNull
+	private int favLikes;
+	@NotNull
+	private int unFavLikes;
 	private List<MediaList> mediaList;
+	@NotNull
 	private int postStatus;
 	private String createdDate;
 	private String modifiedDate;
+	@NotNull
 	private String title;
-	private int postId;
+	@NotNull
 	private int postSectionId;
+	@NotNull
 	private int isMediaContain;
+	@NotNull
 	private String pageId;
+	@NotNull
 	private int isChannelPost;
+	@NotNull
 	private int postType;
+	@NotNull
 	private String postContent;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -42,21 +65,30 @@ public class Post implements Serializable {
 		this.commentDetails = commentDetails;
 	}
 
-	public int getTotalComments() {
-		return totalComments;
+	public int getTotalComment() {
+		return totalComment;
 	}
 
-	public void setTotalComments(int totalComments) {
-		this.totalComments = totalComments;
+	public void setTotalComment(int totalComment) {
+		this.totalComment = totalComment;
 	}
 
-	public int getTotalLikes() {
-		return totalLikes;
+	public int getFavLikes() {
+		return favLikes;
 	}
 
-	public void setTotalLikes(int totalLikes) {
-		this.totalLikes = totalLikes;
+	public void setFavLikes(int favLikes) {
+		this.favLikes = favLikes;
 	}
+
+	public int getUnFavLikes() {
+		return unFavLikes;
+	}
+
+	public void setUnFavLikes(int unFavLikes) {
+		this.unFavLikes = unFavLikes;
+	}
+
 
 	public List<MediaList> getMediaList() {
 		return mediaList;
@@ -96,14 +128,6 @@ public class Post implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public int getPostId() {
-		return postId;
-	}
-
-	public void setPostId(int postId) {
-		this.postId = postId;
 	}
 
 	public int getPostSectionId() {

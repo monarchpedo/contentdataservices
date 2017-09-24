@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.storyshell.model.CommentDetail;
 import com.storyshell.model.FreindModel;
@@ -23,6 +24,7 @@ public class ContentDataImpl implements ContentData {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
+	@Transactional
 	public List<MediaList> getAllImages(int userId, int mediaType) {
 		// TODO Auto-generated method stub
 		String query = com.storyshell.util.Constants.getMediaDetail;
@@ -63,8 +65,10 @@ public class ContentDataImpl implements ContentData {
 	}
 
 	@Override
+	@Transactional
 	public int savePost(Post post) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 

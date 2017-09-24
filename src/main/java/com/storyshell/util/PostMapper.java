@@ -14,6 +14,7 @@ public class PostMapper implements RowMapper<Post> {
 	public Post mapRow(ResultSet rs, int line) throws SQLException {
 		// TODO Auto-generated method stub
 		Post post = new Post();
+		
 		if (rs.getInt("id") != 0) {
 			post.setUserId(rs.getInt("id"));
 		}
@@ -22,16 +23,22 @@ public class PostMapper implements RowMapper<Post> {
 			post.setUserId(rs.getInt("userId"));
 		}
 
-		if (rs.getInt("postId") != 0) {
-			post.setPostId(rs.getInt("postId"));
+		if (rs.getInt("id") != 0) {
+			post.setId(rs.getInt("id"));
+		}
+    
+		if (rs.getInt("favLikes") != 0) {
+			post.setFavLikes(rs.getInt("favLikes"));
 		}
 
-		if (rs.getInt("numberOfLikes") != 0) {
-			post.setTotalLikes(rs.getInt("numberOfLikes"));
+
+		if (rs.getInt("unFavLikes") != 0) {
+			post.setUnFavLikes(rs.getInt("unFavLikes"));
 		}
 
+		
 		if (rs.getInt("totalComment") != 0) {
-			post.setTotalComments(rs.getInt("totalComment"));
+			post.setTotalComment(rs.getInt("totalComment"));
 		}
 
 		if (rs.getInt("postType") != 0) {
@@ -46,6 +53,7 @@ public class PostMapper implements RowMapper<Post> {
 			post.setIsChannelPost(rs.getInt("isChannelPost"));
 			;
 		}
+		
 		if (rs.getInt("postSectionId") != 0) {
 			post.setPostSectionId(rs.getInt("postSectionId"));
 		}
