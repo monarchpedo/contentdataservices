@@ -1,11 +1,14 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author MonarchPedo
+ * @category model class
+ */
 
 public class MediaList implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8274844870472897499L;
 	private int rowId;
 	private int postId;
@@ -87,6 +90,26 @@ public class MediaList implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		result.append(" MediaList [").append(" rowId=").append(rowId).append(", postId=").append(postId)
+				.append(", userId=").append(userId).append(", mediaId=").append(mediaId).append(", location=")
+				.append(location).append(", modifiedDate=").append(modifiedDate).append(", createdDate=")
+				.append(createdDate).append(", active=").append(active).append(", mediaType=").append(mediaType);
+		return result.toString();
+	}
+	
+	private <T> String convertToString(List<T> list) {
+		StringBuilder builder = new StringBuilder();
+		for (T item : list) {
+			builder.append(item.toString());
+			builder.append("\t");
+		}
+		return builder.toString();
+
 	}
 
 }

@@ -1,18 +1,25 @@
 package com.storyshell.contentdataservices;
 
+import javax.inject.Inject;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
 public class RedisConfig {
+
+	@Inject
+	private Environment env;
+
 	@Bean
 	public JedisConnectionFactory jedisConnectionFactory() {
 		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
 		jedisConFactory.setUsePool(true);
-		jedisConFactory.setHostName("localhost");
-		jedisConFactory.setPort(6379);
+		jedisConFactory.setHostName(env.getProperty("redis.url"));
+		jedisConFactory.setPort(Integer.parseInt(env.getProperty("redis.port")));
 		return jedisConFactory;
 	}
 

@@ -48,7 +48,7 @@ public class Post implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public int getUserId() {
 		return userId;
 	}
@@ -88,7 +88,6 @@ public class Post implements Serializable {
 	public void setUnFavLikes(int unFavLikes) {
 		this.unFavLikes = unFavLikes;
 	}
-
 
 	public List<MediaList> getMediaList() {
 		return mediaList;
@@ -176,5 +175,30 @@ public class Post implements Serializable {
 
 	public void setPostContent(String postContent) {
 		this.postContent = postContent;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		result.append(" Post [").append("id =").append(id).append(", userId=").append(userId)
+				.append(", commentDetails=").append(convertToString(commentDetails)).append(", totalComment=")
+				.append(totalComment).append(", favLikes=").append(favLikes).append(", unFavLikes=").append(unFavLikes)
+				.append(", mediaList=").append(convertToString(mediaList)).append(", postStatus=").append(postStatus)
+				.append(", createdDate=").append(createdDate).append(", modifiedDate=").append(modifiedDate)
+				.append(", title=").append(title).append(", postSectionId=").append(postSectionId)
+				.append(", isMediaContain=").append(isMediaContain).append(", pageId=").append(pageId)
+				.append(", isChannelPost=").append(isChannelPost).append(", postType=").append(postType)
+				.append(", postContent=").append(postContent);
+		return result.toString();
+	}
+
+	private <T> String convertToString(List<T> list) {
+		StringBuilder builder = new StringBuilder();
+		for (T item : list) {
+			builder.append(item.toString());
+			builder.append("\t");
+		}
+		return builder.toString();
+
 	}
 }

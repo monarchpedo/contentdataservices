@@ -9,5 +9,5 @@ public class BlockHistory implements Serializable{
 	 * @category model class
 	 */
 	private static final long serialVersionUID = 1041305872187472381L;
-
+    
 }

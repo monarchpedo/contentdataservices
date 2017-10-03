@@ -10,6 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.RequestContextFilter;
 
+import com.storyshell.util.ValidationExceptionMapper;
+
 @Configuration
 // @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(JerseyProperties.class)
@@ -27,6 +29,8 @@ public class JerseyConfig extends ResourceConfig {
 		packages("com.storyshell.controller");
 		register(GenericExceptionMapper.class);
 		register(RequestContextFilter.class);
+		register(GenericExceptionHandler.class);
+		register(ValidationExceptionMapper.class);
 	}
 
 	/*

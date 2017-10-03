@@ -1,6 +1,7 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CommentDetail implements Serializable {
 	/**
@@ -88,6 +89,27 @@ public class CommentDetail implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		result.append("CommentDetail [").append("rowId=").append(rowId).append(", userId=").append(userId)
+				.append(", postId=").append(postId).append(", commentDetails=").append(commentDetails)
+				.append(", childLevel=").append(childLevel).append(", parentId").append(parentId)
+				.append(", modified_date=").append(modified_date).append(", created_date=").append(created_date)
+				.append(", active=").append(active);
+		return result.toString();
+	}
+	
+	private <T> String convertToString(List<T> list) {
+		StringBuilder builder = new StringBuilder();
+		for (T item : list) {
+			builder.append(item.toString());
+			builder.append("\t");
+		}
+		return builder.toString();
+
 	}
 
 }

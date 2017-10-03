@@ -14,19 +14,16 @@ import com.storyshell.model.Post;
  * copyright 2017 @stroyshell Licences
  * */
 public class QueryMapper<T extends Object> {
-	
+
 	public static String modelName;
 	private List<Object> list;
 
-	
 	/**
 	 * @author Moanrchpedo constructor for QueryMapper
 	 */
 	public QueryMapper() {
 		list = new ArrayList<Object>();
 	}
-	
-	
 
 	/*
 	 * @Monarchpedo return the list of fields in class T
@@ -41,8 +38,6 @@ public class QueryMapper<T extends Object> {
 		return fieldNames;
 
 	}
-	
-	
 
 	/*
 	 * @Monarchpedpo Return the list of parameter neccessary in insert,update
@@ -66,7 +61,7 @@ public class QueryMapper<T extends Object> {
 						list.add(result);
 					}
 
-				} else {
+				} else if (a.getClass().getDeclaredMethod(functionName).getReturnType().equals(String.class)) {
 					if (!StringUtils.isEmpty(a.getClass().getDeclaredMethod(functionName).invoke(a))) {
 						listOfQueryParameter.add(field);
 						list.add(a.getClass().getDeclaredMethod(functionName).invoke(a));
@@ -76,8 +71,6 @@ public class QueryMapper<T extends Object> {
 		}
 		return listOfQueryParameter;
 	}
-	
-	
 
 	/*
 	 * @Monarchpedo return the queryString
@@ -99,8 +92,6 @@ public class QueryMapper<T extends Object> {
 		return result;
 	}
 
-	
-	
 	/*
 	 * @author Monarchpedo return the updareQuery
 	 **/
@@ -115,8 +106,6 @@ public class QueryMapper<T extends Object> {
 		String result = updateQuery.toString().substring(0, updateQuery.toString().length() - 1);
 		return result;
 	}
-	
-	
 
 	/*
 	 * @author Monarchpedo return the object values need to save or update in
@@ -131,8 +120,6 @@ public class QueryMapper<T extends Object> {
 		return object;
 	}
 
-	
-	
 	public static void main(String args[]) throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Post post = new Post();

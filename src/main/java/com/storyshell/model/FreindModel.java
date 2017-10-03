@@ -1,6 +1,7 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class FreindModel implements Serializable {
 	/**
@@ -70,6 +71,24 @@ public class FreindModel implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		result.append(" FreindModel [").append(", rowId=").append(rowId).append(", friendId=").append(friendId)
+				.append(", userId=").append(userId).append(", username=").append(username).append(", followingStatus=")
+				.append(followingStatus).append(", joinedDate=").append(joinedDate).append(", active=").append(active);
+		return result.toString();
+	}
+	
+	private <T> String convertToString(List<T> list) {
+		StringBuilder builder = new StringBuilder();
+		for (T item : list) {
+			builder.append(item.toString());
+			builder.append("\t,");
+		}
+		return builder.toString();
 	}
 
 }
