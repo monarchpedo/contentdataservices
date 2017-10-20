@@ -1,10 +1,9 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.validation.constraints.NotNull;
-
-import org.springframework.data.repository.NoRepositoryBean;
 
 /**
  * @author Monarchpedo
@@ -16,7 +15,7 @@ public class GroupNetwork implements Serializable {
 
 	private int id;
 	@NotNull
-	private int groupId; // id of post means postid
+	private int groupId; // id of group is generated when someone start creating group on post group button 
 	@NotNull
 	private String groupName;
 	@NotNull
@@ -24,7 +23,7 @@ public class GroupNetwork implements Serializable {
 	@NotNull
 	private int active;
 	@NotNull
-	private String createdDate;
+	private Date createdDate;
 	@NotNull
 	private int groupActive;
 
@@ -68,11 +67,11 @@ public class GroupNetwork implements Serializable {
 		this.active = active;
 	}
 
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 

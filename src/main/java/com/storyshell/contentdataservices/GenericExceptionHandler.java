@@ -1,11 +1,12 @@
 package com.storyshell.contentdataservices;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Provider
 public class GenericExceptionHandler extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
@@ -17,7 +18,6 @@ public class GenericExceptionHandler extends RuntimeException {
 	}
 
 	public Response toResponse(RuntimeException exception) {
-		// return Response.serverError().entity(exception.getMessage()).build();
 		LOG.error(this.getMessage());
 		return Response.serverError().entity(this.getMessage()).build();
 	}

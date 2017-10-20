@@ -2,152 +2,66 @@ package com.storyshell.services;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
 import org.springframework.stereotype.Service;
 
-import com.storyshell.model.CommentDetail;
-import com.storyshell.model.FreindModel;
-import com.storyshell.model.MediaList;
-import com.storyshell.model.Message;
+import com.storyshell.contentdataservices.GenericExceptionHandler;
+import com.storyshell.dao.ContentData;
 import com.storyshell.model.Post;
+import com.storyshell.util.GenericRestTemplateCall;
+import com.storyshell.util.ResponseGenerator;
 
 @Service
 public class ContentServiceImpl implements ContentService {
 
-	@Override
-	public int saveComment(CommentDetail comment) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	@Inject
+	private ContentData contentData;
+	private static final String AUTH_URL = "localhost:8000/oauth/v1/";
 
 	@Override
-	public int saveMessage(Message message) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int saveFriend(FreindModel friendModel) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int savePost(Post post) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteMessage(int messageId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Response savePost(Post post) throws GenericExceptionHandler {
+		try {
+			GenericRestTemplateCall<String, Boolean> restTemplate = new GenericRestTemplateCall<String, Boolean>();
+			boolean isExists = (boolean) restTemplate.doGetExecute("/user/" + post.getUserId() + "/check", null,
+					Boolean.class);
+			if (isExists == false) {
+				throw new GenericExceptionHandler("userId does not exists");
+			}
+			int saveResult = contentData.savePost(post);
+			if (saveResult == 0) {
+				return ResponseGenerator.generateResponse("Error in saving post,please try again...",
+						Response.Status.CONFLICT);
+			}
+			return ResponseGenerator.generateResponse("post has been saved", Response.Status.CREATED);
+		} catch (Exception e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		}
 	}
 
 	@Override
 	public int deletePost(int postId) {
-		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public int deleteComment(int commentId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int unFreind(int userId, int friendId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int removeComment(int postId, int removedCommentId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteMedia(int imageId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<MediaList> getMediaList(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MediaList getProfileMedia(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Message> getMessage(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Message> getMessage(int userId, int friendId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public List<Post> getPostByUserId(int userId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Post> getPostByPageId(int pageId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CommentDetail> getComment(int postId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CommentDetail getSingleComment(int postId, int commentLevel, int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<FreindModel> getFriendList(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Message> getMessageByGroupId(int groupId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Post> getPostBySection(int sectionId, int userId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Post> getPostByChannelSection(int sectionId, int pageId, String channelName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<FreindModel> getFolloweOfPage(String channelName, int pageId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -15,7 +15,7 @@ public class MediaMapper implements RowMapper<MediaList> {
 		// TODO Auto-generated method stub
 		MediaList mediaList = new MediaList();
 		if (rs.getInt("Id") != 0) {
-			mediaList.setRowId(rs.getInt("id"));
+			mediaList.setId(rs.getInt("id"));
 		}
 
 		if (rs.getInt("userId") != 0) {

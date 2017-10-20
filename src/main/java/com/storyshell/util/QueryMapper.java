@@ -2,17 +2,19 @@ package com.storyshell.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.util.StringUtils;
 
+import com.storyshell.contentdataservices.GenericExceptionHandler;
 import com.storyshell.model.Post;
 
-/*
- * @author Monarchpedo
- * copyright 2017 @stroyshell Licences
- * */
+/**
+ * @author Monarchpedo copyright 2017 @stroyshell Licences
+ */
 public class QueryMapper<T extends Object> {
 
 	public static String modelName;
@@ -25,7 +27,7 @@ public class QueryMapper<T extends Object> {
 		list = new ArrayList<Object>();
 	}
 
-	/*
+	/**
 	 * @Monarchpedo return the list of fields in class T
 	 */
 	public List<String> getFieldsName(T a) throws ClassNotFoundException {
@@ -39,12 +41,13 @@ public class QueryMapper<T extends Object> {
 
 	}
 
-	/*
+	/**
 	 * @Monarchpedpo Return the list of parameter neccessary in insert,update
-	 * query
+	 *               query
 	 */
-	public List<String> getColumnList(T a) throws ClassNotFoundException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public List<String> getColumnList(T a, Map<String, Object> mapList)
+			throws ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
 
 		List<String> fieldNames = this.getFieldsName(a);
 		List<String> listOfQueryParameter = new ArrayList<String>();
@@ -52,19 +55,24 @@ public class QueryMapper<T extends Object> {
 		for (String field : fieldNames) {
 			String functionName = prefix + field.substring(0, 1).toUpperCase() + field.substring(1, field.length());
 			if (!field.equals("serialVersionUID")) {
-				// System.out.println(a.getClass().getDeclaredMethod(functionName).getReturnType());
-				// System.out.println(a.getClass().getDeclaredMethod(functionName).invoke(a));
 				if (a.getClass().getDeclaredMethod(functionName).getReturnType().equals(Integer.TYPE)) {
 					Integer result = (Integer) a.getClass().getDeclaredMethod(functionName).invoke(a);
 					if (result.intValue() != 0) {
 						listOfQueryParameter.add(field);
 						list.add(result);
 					}
-
 				} else if (a.getClass().getDeclaredMethod(functionName).getReturnType().equals(String.class)) {
 					if (!StringUtils.isEmpty(a.getClass().getDeclaredMethod(functionName).invoke(a))) {
 						listOfQueryParameter.add(field);
 						list.add(a.getClass().getDeclaredMethod(functionName).invoke(a));
+					}
+				} else if (a.getClass().getDeclaredMethod(functionName).getReturnType().equals(Date.class)) {
+					if (field.equals("modifiedDate") && mapList.containsKey("modifiedDate")) {
+						listOfQueryParameter.add(field);
+						list.add(mapList.get("modifiedDate"));
+					} else if (field.equals("createdDate") && mapList.containsKey("createdDate")) {
+						listOfQueryParameter.add(field);
+						list.add(mapList.get("createdDate"));
 					}
 				}
 			}
@@ -72,18 +80,32 @@ public class QueryMapper<T extends Object> {
 		return listOfQueryParameter;
 	}
 
-	/*
+	/**
 	 * @Monarchpedo return the queryString
 	 */
-	public String getInsertQuery(T a, String tableName) throws ClassNotFoundException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		List<String> listofFields = this.getColumnList(a);
+	public String getInsertQuery(T a, String tableName, Map<String, Object> mapList) {
+		List<String> listofFields = null;
+		try {
+			listofFields = this.getColumnList(a, mapList);
+		} catch (ClassNotFoundException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (IllegalAccessException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (IllegalArgumentException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (InvocationTargetException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (NoSuchMethodException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (SecurityException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		}
 		StringBuilder columnName = new StringBuilder();
 		StringBuilder valueName = new StringBuilder();
-		columnName.append("Insert into ").append(tableName).append("( ");
+		columnName.append("Insert into ").append("`" + tableName + "`").append("( ");
 		valueName.append("Values(");
 		for (String field : listofFields) {
-			columnName.append(field).append(",");
+			columnName.append("`").append(field).append("`,");
 			valueName.append("?,");
 		}
 		String part1 = columnName.toString().substring(0, columnName.toString().length() - 1);
@@ -92,24 +114,38 @@ public class QueryMapper<T extends Object> {
 		return result;
 	}
 
-	/*
+	/**
 	 * @author Monarchpedo return the updareQuery
 	 **/
-	public String getUpdateQuery(T a, String tableName) throws ClassNotFoundException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public String getUpdateQuery(T a, String tableName, Map<String, Object> mapList) {
 		StringBuilder updateQuery = new StringBuilder();
 		updateQuery.append("Update ").append(tableName).append(" SET ");
-		List<String> listofFields = this.getColumnList(a);
+		List<String> listofFields = null;
+		try {
+			listofFields = this.getColumnList(a, mapList);
+		} catch (ClassNotFoundException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (IllegalAccessException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (IllegalArgumentException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (InvocationTargetException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (NoSuchMethodException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		} catch (SecurityException e) {
+			throw new GenericExceptionHandler(e.getMessage());
+		}
 		for (String field : listofFields) {
-			updateQuery.append(field).append("= ?,");
+			updateQuery.append("`").append(field).append("`= ?,");
 		}
 		String result = updateQuery.toString().substring(0, updateQuery.toString().length() - 1);
 		return result;
 	}
 
-	/*
+	/**
 	 * @author Monarchpedo return the object values need to save or update in
-	 * database
+	 *         database
 	 */
 	public Object[] getObjectValues() {
 		Object object[] = new Object[list.size()];
@@ -128,13 +164,13 @@ public class QueryMapper<T extends Object> {
 		post.setUnFavLikes(4);
 		post.setTitle("1st post");
 		QueryMapper<Post> queryMapper = new QueryMapper<Post>();
-		String query = queryMapper.getInsertQuery(post, "userpost");
+		// String query = queryMapper.getInsertQuery(post, "userpost");
 		// String updateQuery = queryMapper.getUpdateQuery(post,"userpost");
 		Object[] list = queryMapper.getObjectValues();
 		for (int i = 0; i < list.length; i++) {
 			System.out.println(list[i]);
 		}
-		System.out.println(query);
+		// System.out.println(query);
 		// System.out.println(updateQuery);
 	}
 

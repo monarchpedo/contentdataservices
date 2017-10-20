@@ -7,22 +7,22 @@ public class Message implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7090872080481235177L;
-	private int msgId;
+	private int id;
 	private int userId;
-	private int receiptId;
-	private String message;
+	private int receiptId; //it will be set when private chat will go between two people
+	private String messageContent;
 	private MediaList mediaList;
 	private String createdDate;
 	private int isActive;
 	private int mediaId;
-	private int groupId;
+	private int groupId;//It will be set when chat will be in group of  particular post from all around the world
 
-	public int getMsgId() {
-		return msgId;
+	public int getId() {
+		return id;
 	}
 
-	public void setMsgId(int msgId) {
-		this.msgId = msgId;
+	public void setId(int msgId) {
+		this.id = msgId;
 	}
 
 	public int getUserId() {
@@ -41,12 +41,12 @@ public class Message implements Serializable {
 		this.receiptId = receiptId;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getMessageContent() {
+		return messageContent;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMessageContent(String message) {
+		this.messageContent = message;
 	}
 
 	public MediaList getMediaList() {

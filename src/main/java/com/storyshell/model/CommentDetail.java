@@ -1,6 +1,7 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 public class CommentDetail implements Serializable {
@@ -9,22 +10,23 @@ public class CommentDetail implements Serializable {
 	 * @category model class
 	 */
 	private static final long serialVersionUID = -3991575378651456738L;
-	private int rowId;
+	private int id;
 	private int postId;
 	private int userId;
-	private String commentDetails;
-	private int childLevel;
+	private String comment;
 	private int parentId;
-	private String modified_date;
-	private String created_date;
+	private Date modifiedDate;
+	private Date createdDate;
 	private int active;
+	private int favLikes;
+	private int unFavLikes;
 
-	public int getRowId() {
-		return rowId;
+	public int getId() {
+		return id;
 	}
 
-	public void setRowId(int rowId) {
-		this.rowId = rowId;
+	public void setId(int rowId) {
+		this.id = rowId;
 	}
 
 	public int getPostId() {
@@ -35,20 +37,12 @@ public class CommentDetail implements Serializable {
 		this.postId = postId;
 	}
 
-	public String getCommentDetails() {
-		return commentDetails;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setCommentDetails(String commentDetails) {
-		this.commentDetails = commentDetails;
-	}
-
-	public int getChildLevel() {
-		return childLevel;
-	}
-
-	public void setChildLevel(int childLevel) {
-		this.childLevel = childLevel;
+	public void setComment(String commentDetails) {
+		this.comment = commentDetails;
 	}
 
 	public int getParentId() {
@@ -59,20 +53,20 @@ public class CommentDetail implements Serializable {
 		this.parentId = parentId;
 	}
 
-	public String getModified_date() {
-		return modified_date;
+	public Date getModifiedDate() {
+		return modifiedDate;
 	}
 
-	public void setModified_date(String modified_date) {
-		this.modified_date = modified_date;
+	public void setModifiedDate(Date modified_date) {
+		this.modifiedDate = modified_date;
 	}
 
-	public String getCreated_date() {
-		return created_date;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCreated_date(String created_date) {
-		this.created_date = created_date;
+	public void setCreatedDate(Date created_date) {
+		this.createdDate = created_date;
 	}
 
 	public int getActive() {
@@ -91,17 +85,33 @@ public class CommentDetail implements Serializable {
 		this.userId = userId;
 	}
 
+	public int getFavLikes() {
+		return favLikes;
+	}
+
+	public void setFavLikes(int favLikes) {
+		this.favLikes = favLikes;
+	}
+
+	public int getUnFavLikes() {
+		return unFavLikes;
+	}
+
+	public void setUnFavLikes(int unFavLikes) {
+		this.unFavLikes = unFavLikes;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		result.append("CommentDetail [").append("rowId=").append(rowId).append(", userId=").append(userId)
-				.append(", postId=").append(postId).append(", commentDetails=").append(commentDetails)
-				.append(", childLevel=").append(childLevel).append(", parentId").append(parentId)
-				.append(", modified_date=").append(modified_date).append(", created_date=").append(created_date)
-				.append(", active=").append(active);
+		result.append("CommentDetail [").append("rowId=").append(id).append(", userId=").append(userId)
+				.append(", postId=").append(postId).append(", commentDetails=").append(comment).append(", parentId")
+				.append(parentId).append(", modified_date=").append(modifiedDate).append(", created_date=")
+				.append(createdDate).append(", active=").append(active).append(", favLikes= ").append(favLikes)
+				.append(", unFavLikes=").append(unFavLikes);
 		return result.toString();
 	}
-	
+
 	private <T> String convertToString(List<T> list) {
 		StringBuilder builder = new StringBuilder();
 		for (T item : list) {

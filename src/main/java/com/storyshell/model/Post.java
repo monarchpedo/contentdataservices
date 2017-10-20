@@ -1,15 +1,18 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 
+ * @author Monarchpedo
+ *
+ */
 public class Post implements Serializable {
-	/**
-	 * @author RajaBose
-	 * @category model class
-	 */
+	
 	private static final long serialVersionUID = -7381056071294028885L;
 	private int id;
 	@NotNull
@@ -24,15 +27,14 @@ public class Post implements Serializable {
 	private List<MediaList> mediaList;
 	@NotNull
 	private int postStatus;
-	private String createdDate;
-	private String modifiedDate;
+	private Date createdDate;
+	private Date modifiedDate;
 	@NotNull
 	private String title;
 	@NotNull
 	private int postSectionId;
 	@NotNull
 	private int isMediaContain;
-	@NotNull
 	private String pageId;
 	@NotNull
 	private int isChannelPost;
@@ -105,19 +107,19 @@ public class Post implements Serializable {
 		this.postStatus = postStatus;
 	}
 
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public String getModifiedDate() {
+	public Date getModifiedDate() {
 		return modifiedDate;
 	}
 
-	public void setModifiedDate(String modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
 

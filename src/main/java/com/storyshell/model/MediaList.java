@@ -1,6 +1,7 @@
 package com.storyshell.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -10,14 +11,14 @@ import java.util.List;
 
 public class MediaList implements Serializable {
 	private static final long serialVersionUID = -8274844870472897499L;
-	private int rowId;
+	private int id;
 	private int postId;
 	private int userId;
-	private String mediaId;
+	private String mediaLink;
 	private String location;
-	private String modifiedDate;
-	private String createdDate;
-	private int active;
+	private Date modifiedDate;
+	private Date createdDate;
+	private int isAvailabel;
 	private String mediaType;
 
 	public String getMediaType() {
@@ -28,12 +29,12 @@ public class MediaList implements Serializable {
 		this.mediaType = mediaType;
 	}
 
-	public int getRowId() {
-		return rowId;
+	public int getId() {
+		return id;
 	}
 
-	public void setRowId(int rowId) {
-		this.rowId = rowId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getPostId() {
@@ -44,12 +45,12 @@ public class MediaList implements Serializable {
 		this.postId = postId;
 	}
 
-	public String getMediaId() {
-		return mediaId;
+	public String getMediaLink() {
+		return mediaLink;
 	}
 
-	public void setMediaId(String imageId) {
-		this.mediaId = imageId;
+	public void setMediaLink(String imageId) {
+		this.mediaLink = imageId;
 	}
 
 	public String getLocation() {
@@ -60,28 +61,28 @@ public class MediaList implements Serializable {
 		this.location = location;
 	}
 
-	public String getModifiedDate() {
+	public Date getModifiedDate() {
 		return modifiedDate;
 	}
 
-	public void setModifiedDate(String modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public int getActive() {
-		return active;
+	public int getIsAvailabel() {
+		return isAvailabel;
 	}
 
-	public void setActive(int active) {
-		this.active = active;
+	public void setIsAvailabel(int active) {
+		this.isAvailabel = active;
 	}
 
 	public int getUserId() {
@@ -95,13 +96,13 @@ public class MediaList implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		result.append(" MediaList [").append(" rowId=").append(rowId).append(", postId=").append(postId)
-				.append(", userId=").append(userId).append(", mediaId=").append(mediaId).append(", location=")
+		result.append(" MediaList [").append(" rowId=").append(id).append(", postId=").append(postId)
+				.append(", userId=").append(userId).append(", mediaId=").append(mediaLink).append(", location=")
 				.append(location).append(", modifiedDate=").append(modifiedDate).append(", createdDate=")
-				.append(createdDate).append(", active=").append(active).append(", mediaType=").append(mediaType);
+				.append(createdDate).append(", active=").append(isAvailabel).append(", mediaType=").append(mediaType);
 		return result.toString();
 	}
-	
+
 	private <T> String convertToString(List<T> list) {
 		StringBuilder builder = new StringBuilder();
 		for (T item : list) {

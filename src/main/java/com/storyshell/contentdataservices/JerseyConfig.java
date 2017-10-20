@@ -4,16 +4,18 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.ApplicationPath;
 
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.autoconfigure.jersey.JerseyProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.RequestContextFilter;
 
+import com.storyshell.controller.FeedController;
+import com.storyshell.controller.MediaController;
 import com.storyshell.util.ValidationExceptionMapper;
 
 @Configuration
-// @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(JerseyProperties.class)
 @ApplicationPath("api/v1")
 public class JerseyConfig extends ResourceConfig {
@@ -26,23 +28,14 @@ public class JerseyConfig extends ResourceConfig {
 
 	@PostConstruct
 	public void init() {
-		packages("com.storyshell.controller");
+		//packages("com.storyshell.controller");
+		register(FeedController.class);
+		register(MediaController.class);
 		register(GenericExceptionMapper.class);
 		register(RequestContextFilter.class);
 		register(GenericExceptionHandler.class);
 		register(ValidationExceptionMapper.class);
+		register(MultiPartFeature.class);
 	}
-
-	/*
-	 * @Bean
-	 * 
-	 * @ConditionalOnMissingBean public FilterRegistrationBean
-	 * requestContextFilter() { FilterRegistrationBean registration = new
-	 * FilterRegistrationBean(); //registration.setFilter(new
-	 * RequestContextFilter()); registration.setFilter(new ServletContainer());
-	 * //registration.addInitParameter("com.sun.jersey.config.property.packages"
-	 * ,""); //registration.setOrder(this.jersey.getFilter().getOrder() - 1);
-	 * //registration.setName("requestContextFilter"); return registration; }
-	 */
 
 }

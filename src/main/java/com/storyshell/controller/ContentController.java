@@ -26,7 +26,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.storyshell.services.ContentService;
-
+/**
+ * @author Monarchpedo
+ * */
 @Component
 @Path("/content")
 public class ContentController {

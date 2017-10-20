@@ -1,13 +1,18 @@
 package com.storyshell.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class Constants {
 
 	public static String columnName = "";
 	public static String columnValues = "";
 	public static String friendIdList = "";
 
+	public static final DateFormat OUT_DATETIME_FORMAT = new SimpleDateFormat("yyy-MM-dd hh:mm:ss");
+
 	public static final String getMediaDetail = "select * from mediastore where userId = ? and mediaType = ?";
-	
+
 	public static final String getMediaDetailById = "select * from mediastore where id = ?";
 
 	public static final String getMediaDetailByPost = "select * from mediastore where userId = ? and postId = ? and mediaType = ?";
