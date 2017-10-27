@@ -14,18 +14,18 @@ public class MediaList implements Serializable {
 	private int id;
 	private int postId;
 	private int userId;
-	private String mediaLink;
+	private String extension;
 	private String location;
 	private Date modifiedDate;
 	private Date createdDate;
 	private int isAvailabel;
-	private String mediaType;
+	private int mediaType;
 
-	public String getMediaType() {
+	public int getMediaType() {
 		return mediaType;
 	}
 
-	public void setMediaType(String mediaType) {
+	public void setMediaType(int mediaType) {
 		this.mediaType = mediaType;
 	}
 
@@ -45,12 +45,12 @@ public class MediaList implements Serializable {
 		this.postId = postId;
 	}
 
-	public String getMediaLink() {
-		return mediaLink;
+	public String getExtension() {
+		return this.extension;
 	}
 
-	public void setMediaLink(String imageId) {
-		this.mediaLink = imageId;
+	public void setExtension(String extension) {
+		this.extension = extension;
 	}
 
 	public String getLocation() {
@@ -97,7 +97,7 @@ public class MediaList implements Serializable {
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		result.append(" MediaList [").append(" rowId=").append(id).append(", postId=").append(postId)
-				.append(", userId=").append(userId).append(", mediaId=").append(mediaLink).append(", location=")
+				.append(", userId=").append(userId).append(", extension=").append(extension).append(", location=")
 				.append(location).append(", modifiedDate=").append(modifiedDate).append(", createdDate=")
 				.append(createdDate).append(", active=").append(isAvailabel).append(", mediaType=").append(mediaType);
 		return result.toString();

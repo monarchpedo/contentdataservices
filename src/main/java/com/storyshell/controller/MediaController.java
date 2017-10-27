@@ -46,7 +46,6 @@ public class MediaController {
 			try {
 				saveFile(bodyPartEntity.getInputStream(), fileName);
 			} catch (IOException e) {
-				e.printStackTrace();
 				throw new GenericExceptionHandler(e.getMessage());
 			}
 		}

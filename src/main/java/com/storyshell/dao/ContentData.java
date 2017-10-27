@@ -22,7 +22,7 @@ public interface ContentData {
 
 	public int saveMedia(MediaList media);
 
-	public int saveComment(CommentDetail comment);
+	public long saveComment(CommentDetail comment);
 
 	public int updateComment(CommentDetail comment, int commentId);
 
@@ -38,18 +38,22 @@ public interface ContentData {
 
 	public List<CommentDetail> getComments(int parentId);
 
-	public int savePost(Post post);
+	public long savePost(Post post);
 
 	public int updatePost(int postId, Post post);
+
+	public int deletePost(int postId);
 
 	// to get post list on the basis of interest order by createdDate
 	public List<Post> getPostList(List<String> interest, int offset);
 
 	public List<Post> getPostByInterest(String interestValue, int offset);
 
-	public List<Post> getAllPost(int userId);
+	public List<Post> getPostByUserInterest(int userId, String interestValue, int offset);
 
-	public List<Post> getAllChannelPost(String pageId);
+	public List<Post> getAllPost(int userId, int offset);
+
+	public List<Post> getAllChannelPost(String pageId, int offset);
 
 	public int saveLikesHit(ContentHit hit);
 
@@ -63,25 +67,36 @@ public interface ContentData {
 
 	public int deleteUnLikesHit(int postId, int userId, int type);
 
-	//List<MediaList> getAllImages(int userId, int mediaType);
-	
+	// List<MediaList> getAllImages(int userId, int mediaType);
+
 	public int saveNetwork(FreindModel friendModel);
-	
+
 	public int createGroup(GroupNetwork grpNetwork);
 
 	public int saveMessage(Message message);
 
-	public List<Message> getMessage(int userId, int offset);//problem part
-	
+	public List<Integer> getFriendChatId(int userId);
+
+	public List<Message> getMessage(int userId, int offset);// problem part (1st
+															// get all
+															// friendlist from
+															// message with whom
+															// they chat and
+															// then get latest
+															// message of all
+															// chat friend
+
 	public List<Message> getGroupMessage(int groupId, int offset);
 
 	public List<Message> getPToPMessage(int userId, int frinedId, int offset);
 
-	public List<FreindModel> getAllFriendList(int userId);//give the list of person with whom he or she can chat
+	public List<FreindModel> getAllFriendList(int userId);// give the list of
+															// person with whom
+															// he or she can
+															// chat
 
 	public List<FreindModel> getAllFollowers(int userId);
-	
+
 	public List<GroupNetwork> getAllGroup(int userId);
-	
-	
+
 }

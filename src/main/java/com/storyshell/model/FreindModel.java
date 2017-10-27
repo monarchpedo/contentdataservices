@@ -11,11 +11,12 @@ public class FreindModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 6104875073573465025L;
 	private int id;
-	private int friendId; //just part of the 
-	private int userId; //userId of user who are owner of this profile
-	private String shortHandName;//this name is assigned by userId to show friendId name as this name
+	private int friendId; // just part of the
+	private int userId; // userId of user who are owner of this profile
+	private String shortHandName;// this name is assigned by userId to show
+									// friendId name as this name
 	private int isFollowing;
-	private Date joinedDate;
+	private Date createdDate;
 	private int active;
 
 	public int getId() {
@@ -34,12 +35,12 @@ public class FreindModel implements Serializable {
 		this.active = active;
 	}
 
-	public Date getJoinedDate() {
-		return joinedDate;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setJoinedDate(Date joinedDate) {
-		this.joinedDate = joinedDate;
+	public void setCreatedDate(Date joinedDate) {
+		this.createdDate = joinedDate;
 	}
 
 	public int getIsFollowing() {
@@ -78,8 +79,9 @@ public class FreindModel implements Serializable {
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		result.append(" FreindModel [").append(", rowId=").append(id).append(", friendId=").append(friendId)
-				.append(", userId=").append(userId).append(", username=").append(shortHandName).append(", followingStatus=")
-				.append(isFollowing).append(", joinedDate=").append(joinedDate).append(", active=").append(active);
+				.append(", userId=").append(userId).append(", username=").append(shortHandName)
+				.append(", followingStatus=").append(isFollowing).append(", createdDate=").append(createdDate)
+				.append(", active=").append(active);
 		return result.toString();
 	}
 
