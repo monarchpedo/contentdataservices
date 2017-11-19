@@ -32,7 +32,7 @@ public class Post implements Serializable {
 	@NotNull
 	private String title;
 	@NotNull
-	private int postSectionId;
+	private String postSectionId;
 	@NotNull
 	private int isMediaContain;
 	private String pageId;
@@ -131,11 +131,11 @@ public class Post implements Serializable {
 		this.title = title;
 	}
 
-	public int getPostSectionId() {
+	public String getPostSectionId() {
 		return postSectionId;
 	}
 
-	public void setPostSectionId(int postSectionId) {
+	public void setPostSectionId(String postSectionId) {
 		this.postSectionId = postSectionId;
 	}
 
