@@ -43,7 +43,7 @@ public class FeedController {
 	@POST
 	@Path("/post")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(value = { MediaType.APPLICATION_JSON, MediaType.MULTIPART_FORM_DATA })
+	@Consumes(value = { MediaType.MULTIPART_FORM_DATA })
 	public Response addPostWithMedia(final FormDataMultiPart multiPart) {
 		List<FormDataBodyPart> bodyParts = multiPart.getFields("files");
 		Post post = getAndSetPost(multiPart);
@@ -51,41 +51,51 @@ public class FeedController {
 	}
 
 	private Post getAndSetPost(final FormDataMultiPart multiPart) {
+
 		Post post = new Post();
+
 		if (multiPart.getField("userId") != null) {
-			System.out.println((multiPart.getField("userId").getValue().trim()));
 			post.setUserId(Integer.valueOf(multiPart.getField("userId").getValue().trim()));
 		}
 		if (multiPart.getField("postSectionId") != null) {
-			post.setPostSectionId(multiPart.getField("postSectionId").toString().trim());
+			post.setPostSectionId(multiPart.getField("postSectionId").getValue().trim());
 		}
 		if (multiPart.getField("isMediaContain") != null) {
 			post.setIsMediaContain(Integer.valueOf(multiPart.getField("isMediaContain").getValue().trim()));
 		}
+
 		if (multiPart.getField("isChannelPost") != null) {
 			post.setIsChannelPost(Integer.valueOf(multiPart.getField("isChannelPost").getValue().trim()));
 		}
+
 		if (multiPart.getField("postType") != null) {
 			post.setPostType(Integer.valueOf(multiPart.getField("postType").getValue().trim()));
 		}
+
 		if (multiPart.getField("title") != null) {
 			post.setTitle(multiPart.getField("title").getValue().trim());
 		}
+
 		if (multiPart.getField("postContent") != null) {
 			post.setPostContent(multiPart.getField("postContent").getValue().trim());
 		}
+
 		if (multiPart.getField("totalComment") != null) {
 			post.setTotalComment(Integer.valueOf(multiPart.getField("totalComment").getValue().trim()));
 		}
+
 		if (multiPart.getField("favLikes") != null) {
 			post.setFavLikes(Integer.valueOf(multiPart.getField("favLikes").getValue().trim()));
 		}
+
 		if (multiPart.getField("unFavLikes") != null) {
 			post.setUnFavLikes(Integer.valueOf(multiPart.getField("unFavLikes").getValue().trim()));
 		}
+
 		if (multiPart.getField("postStatus") != null) {
 			post.setPostStatus(Integer.valueOf(multiPart.getField("postStatus").getValue().trim()));
 		}
+
 		return post;
 	}
 
