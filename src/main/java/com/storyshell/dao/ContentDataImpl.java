@@ -82,11 +82,11 @@ public class ContentDataImpl implements ContentData {
 		QueryMapper<MediaList> queryMapper = new QueryMapper<MediaList>();
 		String insertQuery = queryMapper.getInsertQuery(media, "mediastore", mapList);
 		Object[] values = queryMapper.getObjectValues();
-		int i = jdbcTemplate.update(insertQuery, values, holder);
+		int i = jdbcTemplate.update(insertQuery, values);
 		if (i == 0) {
 			return -1;
 		}
-		return holder.getKey().intValue();
+		return i;
 	}
 
 	/**
@@ -175,11 +175,11 @@ public class ContentDataImpl implements ContentData {
 		QueryMapper<Post> queryMapper = new QueryMapper<Post>();
 		String insertQuery = queryMapper.getInsertQuery(post, "userpost", mapList);
 		Object[] values = queryMapper.getObjectValues();
-		int i = jdbcTemplate.update(insertQuery, values, holder);
+		int i = jdbcTemplate.update(insertQuery, values);
 		if (i == 0) {
 			return -1;
 		}
-		return holder.getKey().longValue();
+		return i;
 	}
 
 	@Override

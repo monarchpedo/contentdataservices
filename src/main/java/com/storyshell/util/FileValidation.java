@@ -55,7 +55,7 @@ public class FileValidation {
 
 	public static boolean validFileNameFormat(final String fileName) {
 		if (validFileSize(fileName) || validFileMetaData(fileName) || validFileExtension(fileName)
-				|| checkNeutralCharacters(fileName)) {
+				|| checkNullCharacters(fileName) || validFileName(fileName)) {
 			return true;
 		}
 		return false;
@@ -70,7 +70,7 @@ public class FileValidation {
 		return false;
 	}
 
-	private static boolean checkNullCharacteres(final String fileName) {
+	private static boolean checkNullCharacters(final String fileName) {
 		for (int i = 0; i < fileName.length(); i++) {
 			if (fileName.charAt(i) <= -1) {
 				return true;
@@ -83,7 +83,8 @@ public class FileValidation {
 		int result = 0;
 		int dotIndex = fileName.indexOf('.');
 		int lastDotINdex = fileName.lastIndexOf('.');
-		String extension = fileName.substring(dotIndex, fileName.length());
+		
+		String extension = fileName.substring(dotIndex+1, fileName.length());
 		if (extensionList.contains(extension)) {
 			result = 1;
 		} else if (videoList.contains(extension)) {

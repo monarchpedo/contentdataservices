@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.ApplicationPath;
 
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.autoconfigure.jersey.JerseyProperties;
@@ -25,7 +26,7 @@ public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
 
 	}
-
+		
 	@PostConstruct
 	public void init() {
 		//packages("com.storyshell.controller");

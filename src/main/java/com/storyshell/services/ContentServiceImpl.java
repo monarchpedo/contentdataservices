@@ -19,6 +19,7 @@ import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPart;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,9 @@ public class ContentServiceImpl implements ContentService {
 	@Inject
 	private ContentData contentData;
 	private static final String AUTH_URL = "localhost:8000/oauth/v1/";
+
+	@Value("${upload.location}")
+	private String dirName;
 
 	/**
 	 * save post of user of any type either normal post, channel post and
@@ -61,6 +65,7 @@ public class ContentServiceImpl implements ContentService {
 			saveMedia(bodyParts, saveResultId, post.getUserId());
 			return ResponseGenerator.generateResponse("post has been saved", Response.Status.CREATED);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new GenericExceptionHandler(e.getMessage());
 		}
 	}
@@ -140,25 +145,25 @@ public class ContentServiceImpl implements ContentService {
 	@Transactional(rollbackFor = { GenericExceptionHandler.class, IOException.class, Exception.class,
 			SQLException.class })
 	private void saveMedia(List<FormDataBodyPart> bodyParts, long postId, int userId) throws IOException {
-		Path dir = Paths.get(System.getProperty("upload.location"));
+		Path dir = Paths.get(dirName);
 		String locationDir = dir.toString();
 		MediaList media = new MediaList();
 		for (int i = 0; i < bodyParts.size(); i++) {
 			String fileName = bodyParts.get(i).getContentDisposition().getFileName();
-			if (FileValidation.validFileNameFormat(fileName)) {
+			if (!FileValidation.validFileNameFormat(fileName)) {
 				throw new GenericExceptionHandler(
 						"not valid fileName, please send correct fileName to save post of particular interest");
 			}
 			int mediaType = FileValidation.checkMediaType(fileName);
-			String location = locationDir + "/" + userId + "/media" + mediaType;
+			String location = locationDir + userId + "/media/" + mediaType + "/";
 			setMedia(media, userId, postId, location, mediaType);
 			int mediaResultId = contentData.saveMedia(media);
 			if (mediaResultId == -1) {
 				throw new GenericExceptionHandler("error in saving post, please try again");
 			}
 			BodyPartEntity bodyPartEntity = (BodyPartEntity) bodyParts.get(i).getEntity();
-			String file = fileName + mediaResultId;
-			saveFile(bodyPartEntity.getInputStream(), file);
+			String file = mediaResultId + fileName;
+			saveFile(bodyPartEntity.getInputStream(), location, file);
 		}
 	}
 
@@ -185,8 +190,8 @@ public class ContentServiceImpl implements ContentService {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void saveFile(InputStream file, String fileName) throws IOException {
-		java.nio.file.Path path = FileSystems.getDefault().getPath("D:/log/images/" + fileName);
+	private void saveFile(InputStream file, String dirName, String fileName) throws IOException {
+		java.nio.file.Path path = FileSystems.getDefault().getPath(dirName);
 		java.nio.file.Files.copy(file, path);
 	}
 

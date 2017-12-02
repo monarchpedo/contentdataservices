@@ -112,7 +112,7 @@ public class CommentDetail implements Serializable {
 		return result.toString();
 	}
 
-	private <T> String convertToString(List<T> list) {
+	public <T> String convertToString(List<T> list) {
 		StringBuilder builder = new StringBuilder();
 		for (T item : list) {
 			builder.append(item.toString());
