@@ -145,25 +145,27 @@ public class ContentServiceImpl implements ContentService {
 	@Transactional(rollbackFor = { GenericExceptionHandler.class, IOException.class, Exception.class,
 			SQLException.class })
 	private void saveMedia(List<FormDataBodyPart> bodyParts, long postId, int userId) throws IOException {
-		Path dir = Paths.get(dirName);
-		String locationDir = dir.toString();
+		//Path dir = Paths.get(dirName);
+		String locationDir = dirName;
 		MediaList media = new MediaList();
 		for (int i = 0; i < bodyParts.size(); i++) {
 			String fileName = bodyParts.get(i).getContentDisposition().getFileName();
+			
 			if (!FileValidation.validFileNameFormat(fileName)) {
 				throw new GenericExceptionHandler(
 						"not valid fileName, please send correct fileName to save post of particular interest");
 			}
 			int mediaType = FileValidation.checkMediaType(fileName);
 			String location = locationDir + userId + "/media/" + mediaType + "/";
+			createDirectory(locationDir, userId, mediaType);
 			setMedia(media, userId, postId, location, mediaType);
 			int mediaResultId = contentData.saveMedia(media);
 			if (mediaResultId == -1) {
 				throw new GenericExceptionHandler("error in saving post, please try again");
 			}
 			BodyPartEntity bodyPartEntity = (BodyPartEntity) bodyParts.get(i).getEntity();
-			String file = mediaResultId + fileName;
-			saveFile(bodyPartEntity.getInputStream(), location, file);
+			String file = location + fileName;
+			saveFile(bodyPartEntity.getInputStream(), file);
 		}
 	}
 
@@ -190,7 +192,7 @@ public class ContentServiceImpl implements ContentService {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void saveFile(InputStream file, String dirName, String fileName) throws IOException {
+	private void saveFile(InputStream file, String dirName) throws IOException {
 		java.nio.file.Path path = FileSystems.getDefault().getPath(dirName);
 		java.nio.file.Files.copy(file, path);
 	}
@@ -225,5 +227,31 @@ public class ContentServiceImpl implements ContentService {
 			multiPart.setEntity(formDataMultiParts);
 		}
 		return Response.status(Response.Status.ACCEPTED).entity(multiPart).type(MediaType.MULTIPART_FORM_DATA).build();
+	}
+	
+	/**
+	 * 
+	 */
+	private boolean createDirectory(String locationDir, int userId, int mediaType){
+		
+		String userIdDir = locationDir + String.valueOf(userId);
+		File userIdDirCheck = new File(userIdDir);
+		if(!userIdDirCheck.exists()){
+			userIdDirCheck.mkdir();
+		}
+		
+		String mediaDir = userIdDir + "/media";
+		File mediaDirCheck = new File(mediaDir);
+		if(!mediaDirCheck.exists()){
+			mediaDirCheck.mkdir();
+		}
+		
+		String mediaTypeDir = mediaDir + "/" + String.valueOf(mediaType);
+		File mediaTypeDirCheck = new File(mediaTypeDir);
+		if(!mediaTypeDirCheck.exists()){
+			mediaTypeDirCheck.mkdir();
+		}
+		return true;
+		
 	}
 }
