@@ -34,7 +34,7 @@ public interface ContentData {
 																// comment in
 																// his/her post
 
-	public List<CommentDetail> getAllComments(int postId);
+	public List<CommentDetail> getAllComments(int postId, int offset);
 
 	public List<CommentDetail> getComments(int parentId);
 

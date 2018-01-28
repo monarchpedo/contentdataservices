@@ -4,13 +4,18 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 /**
  * @author Monarchpedo
  */
+@Document(indexName = "hit", type = "hit", shards = 1, replicas = 0, refreshInterval = "-1")
 public class ContentHit implements Serializable {
 
 	private static final long serialVersionUID = 1665887545948658427L;
 
+	@Id
 	private int id;
 	@NotNull
 	private int userId;

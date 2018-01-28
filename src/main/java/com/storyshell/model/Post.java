@@ -6,14 +6,24 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 
  * @author Monarchpedo
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
+@Document(indexName = "post", type = "post", shards = 1, replicas = 0, refreshInterval = "-1")
 public class Post implements Serializable {
 	
 	private static final long serialVersionUID = -7381056071294028885L;
+	@Id
 	private int id;
 	@NotNull
 	private int userId;
@@ -24,6 +34,7 @@ public class Post implements Serializable {
 	private int favLikes;
 	@NotNull
 	private int unFavLikes;
+	@Field( type = FieldType.Object )
 	private List<MediaList> mediaList;
 	@NotNull
 	private int postStatus;

@@ -20,6 +20,7 @@ public class MediaList implements Serializable {
 	private Date createdDate;
 	private int isAvailabel;
 	private int mediaType;
+	private String fileName;
 
 	public int getMediaType() {
 		return mediaType;
@@ -93,13 +94,22 @@ public class MediaList implements Serializable {
 		this.userId = userId;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		result.append(" MediaList [").append(" rowId=").append(id).append(", postId=").append(postId)
 				.append(", userId=").append(userId).append(", extension=").append(extension).append(", location=")
 				.append(location).append(", modifiedDate=").append(modifiedDate).append(", createdDate=")
-				.append(createdDate).append(", active=").append(isAvailabel).append(", mediaType=").append(mediaType);
+				.append(createdDate).append(", active=").append(isAvailabel).append(", mediaType=").append(mediaType)
+				.append(", fileName=").append(fileName);
 		return result.toString();
 	}
 

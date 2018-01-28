@@ -113,10 +113,11 @@ public class ContentDataImpl implements ContentData {
 
 	@Override
 	@Transactional
-	public List<CommentDetail> getAllComments(int postId) {
+	public List<CommentDetail> getAllComments(int postId, int offset) {
 		List<CommentDetail> commentList = null;
-		String sql = "select * from commenttable where postId = ? order by createdDate DESC";
-		commentList = jdbcTemplate.query(sql, new Object[] { postId }, new GenericRowMapper(new CommentDetail()));
+		String sql = "select * from commenttable where postId = ? order by createdDate DESC limit ?,10";
+		commentList = jdbcTemplate.query(sql, new Object[] { postId, offset },
+				new GenericRowMapper(new CommentDetail()));
 		return commentList;
 	}
 
